@@ -1,7 +1,8 @@
 import os
 import re
+import shutil
 import argparse
-# Base_directory = r"D:\D_drive_BACKUP\MENTOR\BATELCO\CTUM_Collection_workarround\Test"
+Base_directory = r"D:\D_drive_BACKUP\MENTOR\BATELCO\CTUM_Collection_workarround\Test"
 
 
 class ArrangeLogsEtc(object):
@@ -35,7 +36,12 @@ class ArrangeLogsEtc(object):
                 else:
                     abs_hour_dir = os.path.abspath(os.path.join(abs_date_direcotry, hour_dir))
                     print("Delete hour_directory : {}".format(abs_hour_dir))
-                    # os.remove(abs_hour_dir)
+                    try:
+                        # os.remove(os.path.abspath(abs_hour_dir))
+                        shutil.rmtree(os.path.abspath(abs_hour_dir))
+                    except PermissionError:
+                        print("Unable to delete the directory {}".format(os.path.abspath(abs_hour_dir)))
+                        continue
             else:
                 print("Error: Incorrect folder name")
                 continue
@@ -74,6 +80,11 @@ class ArrangeLogsEtc(object):
                         print("Good File")
                     else:
                         print("Bad file ")
+                        try:
+                            os.remove(os.path.join(search_directory, file))
+                        except:
+                            print("Unable to delete {}".format(os.path.join(search_directory, file)))
+                            continue
 
 
 if __name__ == "__main__":
@@ -82,6 +93,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print(args.logs_etc_directory)
     A = ArrangeLogsEtc(args.logs_etc_directory)
+    # A = ArrangeLogsEtc(Base_directory)
     date_dirs1 = A.get_dates_dir()
     days_and_hour = A.get_days_and_good_hours(date_dirs1)
     A.delete_incorrect_files(days_and_hour)

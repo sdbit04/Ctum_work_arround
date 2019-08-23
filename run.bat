@@ -1,0 +1,1 @@
+python ctum_work_arround\delete_incorrect_files.py D:\D_drive_BACKUP\MENTOR\BATELCO\CTUM_Collection_workarround\Test
