@@ -1,7 +1,6 @@
 import os
 import re
-import argparse
-# Base_directory = r"D:\D_drive_BACKUP\MENTOR\BATELCO\CTUM_Collection_workarround\Test"
+Base_directory = r"D:\D_drive_BACKUP\MENTOR\BATELCO\CTUM_Collection_workarround\Test"
 
 
 class ArrangeLogsEtc(object):
@@ -77,11 +76,7 @@ class ArrangeLogsEtc(object):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("logs_etc_directory")
-    args = parser.parse_args()
-    print(args.logs_etc_directory)
-    A = ArrangeLogsEtc(args.logs_etc_directory)
+    A = ArrangeLogsEtc(Base_directory)
     date_dirs1 = A.get_dates_dir()
     days_and_hour = A.get_days_and_good_hours(date_dirs1)
     A.delete_incorrect_files(days_and_hour)
